@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useMemo, ReactNode, useEffect } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useMemo,
+  ReactNode,
+  useEffect,
+} from "react";
 import { DatabaseClient, SQLiteModuleLike } from "./databaseClient";
 import * as SQLite from "expo-sqlite";
 
@@ -9,18 +15,17 @@ type DatabaseProviderProps = {
   children: ReactNode;
 };
 
-export const DatabaseProvider = ({ sqlite = SQLite, children }: DatabaseProviderProps) => {
+export const DatabaseProvider = ({
+  sqlite = SQLite,
+  children,
+}: DatabaseProviderProps) => {
   const dbClient = useMemo(() => new DatabaseClient(sqlite), [sqlite]);
 
   useEffect(() => {
     dbClient.init();
   }, [dbClient]);
 
-  return (
-    <DatabaseContext value={dbClient}>
-      {children}
-    </DatabaseContext>
-  );
+  return <DatabaseContext value={dbClient}>{children}</DatabaseContext>;
 };
 
 export const useDatabase = () => useContext(DatabaseContext);

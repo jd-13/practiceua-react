@@ -1,4 +1,8 @@
-import { DatabaseClient, SQLiteDatabaseLike, SQLiteModuleLike } from "./databaseClient";
+import {
+  DatabaseClient,
+  SQLiteDatabaseLike,
+  SQLiteModuleLike,
+} from "./databaseClient";
 
 describe("DatabaseClient", () => {
   it("creates tables using injected SQLite implementation", async () => {
@@ -17,7 +21,11 @@ describe("DatabaseClient", () => {
 
     expect(fakeSQLite.openDatabaseAsync).toHaveBeenCalledWith("database");
     expect(execSpy).toHaveBeenCalledTimes(2);
-    expect(execSpy.mock.calls[0][0]).toContain("CREATE TABLE IF NOT EXISTS day_stat");
-    expect(execSpy.mock.calls[1][0]).toContain("CREATE TABLE IF NOT EXISTS starred_lessons");
+    expect(execSpy.mock.calls[0][0]).toContain(
+      "CREATE TABLE IF NOT EXISTS day_stat"
+    );
+    expect(execSpy.mock.calls[1][0]).toContain(
+      "CREATE TABLE IF NOT EXISTS starred_lessons"
+    );
   });
 });

@@ -1,8 +1,8 @@
 // TODO: Wait for @testing-library/react-native to support react 19
 describe("nothing", () => {
-    it("is a placeholder", () => {
-        expect(true).toBe(true);
-    });
+  it("is a placeholder", () => {
+    expect(true).toBe(true);
+  });
 });
 
 // import React from "react";

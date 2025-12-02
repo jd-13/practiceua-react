@@ -25,5 +25,8 @@ jobs:
       - name: Run ESLint
         run: cd practice-ua && npm run lint
 
+      - name: Run formatting
+        run: cd practice-ua && npm run format:check
+
       - name: Type check with TypeScript
         run: cd practice-ua && npx tsc --noEmit
