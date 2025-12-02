@@ -1,3 +1,4 @@
+import { DatabaseProvider } from '@/lib/databaseContext';
 import * as React from 'react';
 import { Text, View, useWindowDimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
@@ -53,11 +54,13 @@ export default function Index() {
   const [index, setIndex] = React.useState(0);
 
   return (
-    <TabView
-      navigationState={{ index, routes }}
-      renderScene={renderScene}
-      onIndexChange={setIndex}
-      initialLayout={{ width: layout.width }}
-    />
+    <DatabaseProvider>
+      <TabView
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{ width: layout.width }}
+      />
+    </DatabaseProvider>
   );
 }
