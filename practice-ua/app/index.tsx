@@ -1,11 +1,11 @@
-import { DatabaseProvider } from '@/lib/database/databaseContext';
-import * as React from 'react';
-import { Text, View, useWindowDimensions } from 'react-native';
-import { TabView, SceneMap } from 'react-native-tab-view';
+import { DatabaseProvider } from "@/lib/database/databaseContext";
+import * as React from "react";
+import { Text, View, useWindowDimensions } from "react-native";
+import { TabView, SceneMap } from "react-native-tab-view";
 
 function AllLessonsRoute() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>All Lessons</Text>
     </View>
   );
@@ -13,7 +13,7 @@ function AllLessonsRoute() {
 
 function StarredLessonsRoute() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Starred Lessons</Text>
     </View>
   );
@@ -21,7 +21,7 @@ function StarredLessonsRoute() {
 
 function RecentLessonsRoute() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Recent Lessons</Text>
     </View>
   );
@@ -29,7 +29,7 @@ function RecentLessonsRoute() {
 
 function StaleLessonsRoute() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Stale Lessons</Text>
     </View>
   );
@@ -43,10 +43,10 @@ const renderScene = SceneMap({
 });
 
 const routes = [
-  { key: 'first', title: 'All' },
-  { key: 'second', title: 'Starred' },
-  { key: 'third', title: 'Recent' },
-  { key: 'fourth', title: 'Stale' },
+  { key: "first", title: "All" },
+  { key: "second", title: "Starred" },
+  { key: "third", title: "Recent" },
+  { key: "fourth", title: "Stale" },
 ];
 
 export default function Index() {
