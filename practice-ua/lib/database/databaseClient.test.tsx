@@ -17,7 +17,7 @@ describe("DatabaseClient", () => {
 
     expect(fakeSQLite.openDatabaseAsync).toHaveBeenCalledWith("database");
     expect(execSpy).toHaveBeenCalledTimes(2);
-    expect(execSpy.mock.calls[0][0]).toContain("CREATE TABLE day_stat");
-    expect(execSpy.mock.calls[1][0]).toContain("CREATE TABLE starred_lessons");
+    expect(execSpy.mock.calls[0][0]).toContain("CREATE TABLE IF NOT EXISTS day_stat");
+    expect(execSpy.mock.calls[1][0]).toContain("CREATE TABLE IF NOT EXISTS starred_lessons");
   });
 });
