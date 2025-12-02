@@ -1,0 +1,28 @@
+name: Lint & Type Check
+
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: cd practice-ua && npm install
+
+      - name: Run ESLint
+        run: cd practice-ua && npm run lint
+
+      - name: Type check with TypeScript
+        run: cd practice-ua && npx tsc --noEmit
