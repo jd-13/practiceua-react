@@ -16,12 +16,12 @@ jest.mock("react-native/Libraries/EventEmitter/NativeEventEmitter");
 const mockRNFS = RNFS as jest.Mocked<typeof RNFS>;
 
 const mockStatResult = {
-  mtime: Date.now(),
+  mtime: Math.floor(Date.now() / 1000), // seconds since epoch
   size: 100,
   path: "",
   name: "test.json",
   mode: 33188,
-  ctime: Date.now(),
+  ctime: Math.floor(Date.now() / 1000),
   originalFilepath: "",
   isFile: () => true,
   isDirectory: () => false,
@@ -47,7 +47,7 @@ describe("dictionary.get()", () => {
     mockRNFS.exists.mockResolvedValue(true);
     mockRNFS.stat.mockResolvedValue({
       ...mockStatResult,
-      mtime: Date.now(),
+      mtime: Math.floor(Date.now() / 1000), // seconds since epoch
     });
     mockRNFS.readFile.mockResolvedValue(cachedData);
 
@@ -135,16 +135,15 @@ describe("dictionary.get()", () => {
     const target = "verbs";
     const version = "1.0";
     const newData = JSON.stringify({ word: "new" });
-    const now = Date.now();
+    const nowSeconds = Math.floor(Date.now() / 1000);
+    const cacheAgeSeconds = 61 * 60; // 61 minutes in seconds
 
     (mockRNFS.DocumentDirectoryPath as any) = "/docs";
     mockRNFS.exists.mockResolvedValue(true);
     mockRNFS.stat.mockResolvedValue({
       ...mockStatResult,
-      mtime: now - 61 * 60 * 1000, // 61 minutes ago (expired)
+      mtime: nowSeconds - cacheAgeSeconds, // file is 61 minutes old
     });
-
-    jest.setSystemTime(now);
 
     global.fetch = jest
       .fn()

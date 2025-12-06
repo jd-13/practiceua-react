@@ -1,7 +1,7 @@
 import RNFS from "react-native-fs";
 
 const HTTP_TIMEOUT = 5000;
-const CACHE_TTL = 60 * 60 * 1000; // 1 hour in ms
+const CACHE_TTL = 60 * 60; // 1 hour in seconds
 
 export async function get(target: string, version: string): Promise<string> {
   console.log(`getting ${target} ${version}`);
@@ -78,8 +78,8 @@ async function hasValidCache(
   if (!exists) return false;
 
   const stat = await RNFS.stat(filePath);
-  const modified = new Date(stat.mtime as string).getTime();
-  const isExpired = modified < Date.now() - CACHE_TTL;
+  const modified = stat.mtime; // Seconds since epoch
+  const isExpired = modified < Math.floor(Date.now() / 1000) - CACHE_TTL;
 
   return !isExpired;
 }
