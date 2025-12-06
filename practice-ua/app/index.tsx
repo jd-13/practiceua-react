@@ -1,13 +1,50 @@
 import { DatabaseProvider } from "@/lib/database/context";
+import { lessons } from "@/lib/lessons/lessons";
 import * as React from "react";
-import { Text, View, useWindowDimensions } from "react-native";
+import {
+  Text,
+  View,
+  useWindowDimensions,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import { TabView, SceneMap } from "react-native-tab-view";
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+  lessonItem: {
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    marginBottom: 8,
+    backgroundColor: "#f5f5f5",
+    borderRadius: 8,
+  },
+  lessonTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#000",
+    textAlign: "center",
+  },
+  lessonCategory: {
+    fontSize: 12,
+    color: "#666",
+    marginTop: 4,
+  },
+});
 
 function AllLessonsRoute() {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>All Lessons</Text>
-    </View>
+    <ScrollView style={styles.container}>
+      {lessons.map((lesson, index) => (
+        <TouchableOpacity key={index} style={styles.lessonItem}>
+          <Text style={styles.lessonTitle}>{lesson.title}</Text>
+\        </TouchableOpacity>
+      ))}
+    </ScrollView>
   );
 }
 
