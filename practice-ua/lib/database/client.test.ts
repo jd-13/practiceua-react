@@ -2,7 +2,7 @@ import {
   DatabaseClient,
   SQLiteDatabaseLike,
   SQLiteModuleLike,
-} from "./databaseClient";
+} from "./client";
 
 describe("DatabaseClient", () => {
   it("creates tables using injected SQLite implementation", async () => {

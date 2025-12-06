@@ -5,7 +5,7 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
-import { DatabaseClient, SQLiteModuleLike } from "./database/databaseClient";
+import { DatabaseClient, SQLiteModuleLike } from "./database/client";
 import * as SQLite from "expo-sqlite";
 
 const DatabaseContext = createContext<DatabaseClient | null>(null);

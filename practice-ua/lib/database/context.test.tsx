@@ -8,7 +8,7 @@ describe("nothing", () => {
 // import React from "react";
 // import { render } from "@testing-library/react-native";
 // import { DatabaseProvider, useDatabase } from "./databaseContext";
-// import { SQLiteModuleLike, SQLiteDatabaseLike } from "./databaseClient";
+// import { SQLiteModuleLike, SQLiteDatabaseLike } from "./client";
 
 // // A simple fake SQLite implementation for tests
 // const createFakeSQLite = () => {
