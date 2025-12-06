@@ -1,4 +1,4 @@
-import { DatabaseProvider } from "@/lib/database/databaseContext";
+import { DatabaseProvider } from "@/lib/database/context";
 import * as React from "react";
 import { Text, View, useWindowDimensions } from "react-native";
 import { TabView, SceneMap } from "react-native-tab-view";
