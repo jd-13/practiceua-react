@@ -7,7 +7,6 @@ import {
 export const lessons: LessonDefinition[] = [
   new LessonDefinition(
     "Numbers",
-    [QuestionType.Response_FreeText],
     LessonCategory.Vocabulary,
     "numbers"
   ),

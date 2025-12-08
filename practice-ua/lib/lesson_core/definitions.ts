@@ -15,19 +15,16 @@ export enum LessonCategory {
 
 export class LessonDefinition {
   title: string;
-  supportedQuestionTypes: QuestionType[];
   lessonCategory: LessonCategory;
-  dbName: string;
+  id: string;
 
   constructor(
     title: string,
-    supportedQuestionTypes: QuestionType[],
     lessonCategory: LessonCategory,
-    dbName: string
+    id: string
   ) {
     this.title = title;
-    this.supportedQuestionTypes = supportedQuestionTypes;
     this.lessonCategory = lessonCategory;
-    this.dbName = dbName;
+    this.id = id;
   }
 }

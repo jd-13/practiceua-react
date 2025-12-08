@@ -1,6 +1,7 @@
 import { DatabaseProvider } from "@/lib/database/context";
 import { LessonCategory } from "@/lib/lesson_core/definitions";
 import { lessons } from "@/lib/lessons/lessons";
+import { useRouter } from "expo-router";
 import * as React from "react";
 import {
   Text,
@@ -47,6 +48,8 @@ const styles = StyleSheet.create({
 });
 
 function AllLessonsRoute() {
+  const router = useRouter();
+
   // Group lessons by category
   const vocabularyLessons = lessons.filter(
     (lesson) => lesson.lessonCategory === LessonCategory.Vocabulary
@@ -58,7 +61,7 @@ function AllLessonsRoute() {
   const renderLessonList = (lessonList: typeof lessons) => (
     <>
       {lessonList.map((lesson, index) => (
-        <TouchableOpacity key={index} style={styles.lessonItem}>
+        <TouchableOpacity key={index} style={styles.lessonItem} onPress={() => router.push(`/lesson/${lesson.id}`)}>
           <Text style={styles.lessonTitle}>{lesson.title}</Text>
         </TouchableOpacity>
       ))}
