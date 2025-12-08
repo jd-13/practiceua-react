@@ -25,3 +25,13 @@ export function pickQuestionType(
   // Return the last key as a fallback
   return entries[entries.length - 1].questionType;
 }
+
+export function getEvenWeights(
+  supportedTypes: QuestionType[]
+): Record<QuestionType, number> {
+  const weight = 1 / supportedTypes.length;
+
+  return Object.fromEntries(
+    supportedTypes.map((type) => [type, weight])
+  ) as Record<QuestionType, number>;
+}

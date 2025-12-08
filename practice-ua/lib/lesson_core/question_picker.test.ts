@@ -1,4 +1,4 @@
-import { pickQuestionType } from "./question_picker";
+import { pickQuestionType, getEvenWeights } from "./question_picker";
 import { QuestionType } from "./definitions";
 
 describe("pickQuestionType", () => {
@@ -75,5 +75,41 @@ describe("pickQuestionType", () => {
 
     const result = pickQuestionType(zeroWeights);
     expect(result).toBe(QuestionType.Pairs); // last enum entry
+  });
+});
+
+describe("getEvenWeights", () => {
+  test("assigns equal weights to all provided question types", () => {
+    const supported = [
+      QuestionType.Response_FreeText,
+      QuestionType.Response_MultipleChoice,
+      QuestionType.Pairs,
+    ];
+
+    const weights = getEvenWeights(supported);
+
+    expect(weights[QuestionType.Response_FreeText]).toBeCloseTo(1 / 3);
+    expect(weights[QuestionType.Response_MultipleChoice]).toBeCloseTo(1 / 3);
+    expect(weights[QuestionType.Pairs]).toBeCloseTo(1 / 3);
+
+    const sum = Object.values(weights).reduce((s, w) => s + w, 0);
+    expect(sum).toBeCloseTo(1);
+  });
+
+  test("returns an empty object when given an empty array", () => {
+    const weights = getEvenWeights([]);
+
+    expect(Object.keys(weights)).toHaveLength(0);
+  });
+
+  test("works with a single supported type", () => {
+    const supported = [QuestionType.Response_FreeText];
+    const weights = getEvenWeights(supported);
+
+    expect(weights[QuestionType.Response_FreeText]).toBe(1);
+
+    // Should contain only 1 key
+    const keys = Object.keys(weights).map((k) => Number(k));
+    expect(keys).toEqual([QuestionType.Response_FreeText]);
   });
 });
