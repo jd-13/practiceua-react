@@ -61,7 +61,11 @@ function AllLessonsRoute() {
   const renderLessonList = (lessonList: typeof lessons) => (
     <>
       {lessonList.map((lesson, index) => (
-        <TouchableOpacity key={index} style={styles.lessonItem} onPress={() => router.push(`/lesson/${lesson.id}`)}>
+        <TouchableOpacity
+          key={index}
+          style={styles.lessonItem}
+          onPress={() => router.push(`/lesson/${lesson.id}`)}
+        >
           <Text style={styles.lessonTitle}>{lesson.title}</Text>
         </TouchableOpacity>
       ))}
