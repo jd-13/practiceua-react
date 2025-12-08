@@ -1,51 +1,63 @@
-// TODO: Wait for @testing-library/react-native to support react 19
-describe("nothing", () => {
-  it("is a placeholder", () => {
-    expect(true).toBe(true);
+import React from "react";
+import { render, waitFor } from "@testing-library/react-native";
+import { DatabaseProvider, useDatabase } from "./context";
+import { SQLiteDatabaseLike, SQLiteModuleLike } from "./client";
+
+class FakeDatabase implements SQLiteDatabaseLike {
+  execAsync = jest.fn().mockResolvedValue(undefined);
+}
+
+class FakeSQLiteModule implements SQLiteModuleLike {
+  openDatabaseAsync = jest.fn().mockImplementation(async (name: string) => {
+    return new FakeDatabase();
+  });
+}
+
+describe("DatabaseProvider with injected SQLite", () => {
+  it("provides a DatabaseClient via context and initializes DB", async () => {
+    const fakeSQLite = new FakeSQLiteModule();
+    let clientFromContext: any = null;
+
+    const TestComponent = () => {
+      clientFromContext = useDatabase();
+      return null;
+    };
+
+    render(
+      <DatabaseProvider sqlite={fakeSQLite}>
+        <TestComponent />
+      </DatabaseProvider>
+    );
+
+    // Wait for initialization to finish
+    await waitFor(() => {
+      expect(clientFromContext).not.toBeNull();
+      expect(clientFromContext.db).not.toBeNull();
+    });
+
+    expect(fakeSQLite.openDatabaseAsync).toHaveBeenCalledWith("database");
+
+    const db = clientFromContext.db;
+    expect(db.execAsync).toHaveBeenCalledTimes(2);
+
+    expect(db.execAsync).toHaveBeenCalledWith(
+      expect.stringContaining("CREATE TABLE IF NOT EXISTS day_stat")
+    );
+
+    expect(db.execAsync).toHaveBeenCalledWith(
+      expect.stringContaining("CREATE TABLE IF NOT EXISTS starred_lessons")
+    );
+  });
+
+  it("useDatabase returns null if used outside provider", () => {
+    let contextValue: any = undefined;
+
+    const TestComponent = () => {
+      contextValue = useDatabase();
+      return null;
+    };
+
+    render(<TestComponent />);
+    expect(contextValue).toBeNull();
   });
 });
-
-// import React from "react";
-// import { render } from "@testing-library/react-native";
-// import { DatabaseProvider, useDatabase } from "./databaseContext";
-// import { SQLiteModuleLike, SQLiteDatabaseLike } from "./client";
-
-// // A simple fake SQLite implementation for tests
-// const createFakeSQLite = () => {
-//   const execAsync = jest.fn().mockResolvedValue(undefined);
-
-//   const fakeDb: SQLiteDatabaseLike = {
-//     execAsync,
-//   };
-
-//   const fakeSQLite: SQLiteModuleLike = {
-//     openDatabaseAsync: jest.fn().mockResolvedValue(fakeDb),
-//   };
-
-//   return { fakeSQLite, fakeDb, execAsync };
-// };
-
-// // A test component that uses the hook
-// const TestComponent = () => {
-//   const db = useDatabase();
-//   return <>{db ? "database loaded" : "no database"}</>;
-// };
-
-// describe("DatabaseContext", () => {
-//   it("provides a DatabaseClient constructed with injected SQLite module", async () => {
-//     const { fakeSQLite } = createFakeSQLite();
-
-//     const { getByText } = render(
-//       <DatabaseProvider sqlite={fakeSQLite}>
-//         <TestComponent />
-//       </DatabaseProvider>
-//     );
-
-//     // The database client exists
-//     expect(getByText("database loaded")).toBeTruthy();
-
-//     // And it was constructed using our injected dependency
-//     expect(fakeSQLite.openDatabaseAsync).not.toHaveBeenCalled();
-//     // init() isn't automatically called — this is expected.
-//   });
-// });
