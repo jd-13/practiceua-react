@@ -15,12 +15,12 @@ export enum LessonCategory {
 
 export class LessonDefinition {
   title: string;
-  lessonCategory: LessonCategory;
+  category: LessonCategory;
   id: string;
 
-  constructor(title: string, lessonCategory: LessonCategory, id: string) {
+  constructor(title: string, category: LessonCategory, id: string) {
     this.title = title;
-    this.lessonCategory = lessonCategory;
+    this.category = category;
     this.id = id;
   }
 }

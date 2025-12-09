@@ -40,11 +40,6 @@ const styles = StyleSheet.create({
     color: "#000",
     textAlign: "center",
   },
-  lessonCategory: {
-    fontSize: 12,
-    color: "#666",
-    marginTop: 4,
-  },
 });
 
 function AllLessonsRoute() {
@@ -52,10 +47,10 @@ function AllLessonsRoute() {
 
   // Group lessons by category
   const vocabularyLessons = lessons.filter(
-    (lesson) => lesson.lessonCategory === LessonCategory.Vocabulary
+    (lesson) => lesson.category === LessonCategory.Vocabulary
   );
   const grammarLessons = lessons.filter(
-    (lesson) => lesson.lessonCategory === LessonCategory.Grammar
+    (lesson) => lesson.category === LessonCategory.Grammar
   );
 
   const renderLessonList = (lessonList: typeof lessons) => (
