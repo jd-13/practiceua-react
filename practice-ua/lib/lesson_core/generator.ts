@@ -9,7 +9,6 @@ export enum QuestionType {
 }
 
 export class Response_FreeText_Data {
-  type = QuestionType.Response_FreeText;
   questionText: string;
   correctAnswer: string;
   feedbackComponent: Function | undefined;
@@ -26,7 +25,6 @@ export class Response_FreeText_Data {
 }
 
 export class Response_MultipleChoice_Data {
-    type = QuestionType.Response_MultipleChoice;
     questionText: string
     correctAnswer: string
     incorrectAnswers: string[]
