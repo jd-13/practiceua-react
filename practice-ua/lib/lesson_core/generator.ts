@@ -44,7 +44,7 @@ export class Response_MultipleChoice_Data {
 }
 
 export type QuestionData = Response_FreeText_Data | Response_MultipleChoice_Data;
-export type Dictionary = Record<string, any>;
+export type Dictionary = {[key: string]: any};
 export type Config = {[key: string]: any};
 
 type Response_FreeText_Func = ((dictionary: Dictionary, config: Config) => Response_FreeText_Data) | undefined;
