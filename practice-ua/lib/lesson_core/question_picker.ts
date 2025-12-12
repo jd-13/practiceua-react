@@ -1,4 +1,4 @@
-import { QuestionType } from "./definitions";
+import { QuestionType } from "./generator";
 
 export function pickQuestionType(
   supportedTypeWeights: Record<QuestionType, number>

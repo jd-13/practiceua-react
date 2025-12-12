@@ -1,5 +1,5 @@
 import { pickQuestionType, getEvenWeights } from "./question_picker";
-import { QuestionType } from "./definitions";
+import { QuestionType } from "./generator";
 
 describe("pickQuestionType", () => {
   const supportedTypeWeights: Record<QuestionType, number> = {
