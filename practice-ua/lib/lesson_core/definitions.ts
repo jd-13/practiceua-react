@@ -1,12 +1,4 @@
-export enum QuestionType {
-  Response_FreeText,
-  Response_MultipleChoice,
-  ResponseWithImage_FreeText,
-  ResponseWithImage_MultipleChoice,
-  FillIn_FreeText,
-  FillIn_MultipleChoice,
-  Pairs,
-}
+import { Dictionary, QuestionGenerator } from "./generator";
 
 export enum LessonCategory {
   Vocabulary,
@@ -17,10 +9,20 @@ export class LessonDefinition {
   title: string;
   category: LessonCategory;
   id: string;
+  getGenerator: () => QuestionGenerator;
+  loadDictionary: () => Promise<Dictionary>;
 
-  constructor(title: string, category: LessonCategory, id: string) {
+  constructor(
+    title: string,
+    category: LessonCategory,
+    id: string,
+    getGenerator: () => QuestionGenerator,
+    loadDictionary: () => Promise<Dictionary>
+  ) {
     this.title = title;
     this.category = category;
     this.id = id;
+    this.getGenerator = getGenerator;
+    this.loadDictionary = loadDictionary;
   }
 }
