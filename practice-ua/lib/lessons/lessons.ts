@@ -1,9 +1,10 @@
 import {
   LessonDefinition,
   LessonCategory,
-  QuestionType,
 } from "../lesson_core/definitions";
+import { buildGenerator, getData } from "./numbers/numbers";
+
 
 export const lessons: LessonDefinition[] = [
-  new LessonDefinition("Numbers", LessonCategory.Vocabulary, "numbers"),
+  new LessonDefinition("Numbers", LessonCategory.Vocabulary, "numbers", buildGenerator, getData),
 ];
