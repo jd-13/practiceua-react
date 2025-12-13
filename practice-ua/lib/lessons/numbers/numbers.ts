@@ -174,11 +174,11 @@ export function get_Response_FreeText_Question(
     numbersConfig.maxNumber
   );
 
-  return {
-    questionText: `Translate: ${chosenNumber}`,
-    correctAnswer: translatedString,
-    feedbackComponent: undefined,
-  };
+  return new Response_FreeText_Data(
+    `Translate: ${chosenNumber}`,
+    translatedString,
+    undefined
+  );
 }
 
 export function buildGenerator(): QuestionGenerator {

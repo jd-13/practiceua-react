@@ -9,6 +9,7 @@ export enum QuestionType {
 }
 
 export class Response_FreeText_Data {
+  type = QuestionType.Response_FreeText;
   questionText: string;
   correctAnswer: string;
   feedbackComponent: Function | undefined;
@@ -25,6 +26,7 @@ export class Response_FreeText_Data {
 }
 
 export class Response_MultipleChoice_Data {
+  type = QuestionType.Response_MultipleChoice;
   questionText: string;
   correctAnswer: string;
   incorrectAnswers: string[];
@@ -94,5 +96,61 @@ export class QuestionGenerator {
     this.fillIn_freeText = fillIn_freeText;
     this.fillIn_multipleChoice = fillIn_multipleChoice;
     this.pairs = pairs;
+  }
+}
+
+export function getSupportedTypesFromGenerator(
+  generator: QuestionGenerator
+): QuestionType[] {
+  const supportedTypes: QuestionType[] = [];
+
+  if (generator.response_freeText) {
+    supportedTypes.push(QuestionType.Response_FreeText);
+  }
+  if (generator.response_multipleChoice) {
+    supportedTypes.push(QuestionType.Response_MultipleChoice);
+  }
+  if (generator.responseWithImage_freeText) {
+    supportedTypes.push(QuestionType.ResponseWithImage_FreeText);
+  }
+  if (generator.responseWithImage_multipleChoice) {
+    supportedTypes.push(QuestionType.ResponseWithImage_MultipleChoice);
+  }
+  if (generator.fillIn_freeText) {
+    supportedTypes.push(QuestionType.FillIn_FreeText);
+  }
+  if (generator.fillIn_multipleChoice) {
+    supportedTypes.push(QuestionType.FillIn_MultipleChoice);
+  }
+  if (generator.pairs) {
+    supportedTypes.push(QuestionType.Pairs);
+  }
+
+  return supportedTypes;
+}
+
+export function generateQuestionForType(
+  questionType: QuestionType,
+  generator: QuestionGenerator,
+  dictionary: any,
+  config: Config
+): QuestionData {
+  switch (questionType) {
+    case QuestionType.Response_FreeText:
+      if (!generator.response_freeText) {
+        throw new Error(
+          "The provided generator does not support Response_FreeText"
+        );
+      }
+      return generator.response_freeText(dictionary, config);
+    case QuestionType.Response_MultipleChoice:
+      if (!generator.response_multipleChoice) {
+        throw new Error(
+          "The provided generator does not support Response_MultipleChoice"
+        );
+      }
+      return generator.response_multipleChoice(dictionary, config);
+    default:
+      throw new Error("Unsupported question type");
   }
 }
